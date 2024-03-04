@@ -15,8 +15,10 @@ var dir = path.join(__dirname, 'public');
 
 app.use(express.static(dir));
 
-app.listen(3000, function () {
-    console.log('Listening on http://localhost:3000/');
+app.get('/',function(req,res){
+  res.sendFile('Hello World!');
 });
 
-console.log(info);
+app.listen(process.env.PORT || 3000, function () {
+    console.log('Listening on http://localhost:3000/');
+});
