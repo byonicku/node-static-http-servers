@@ -9,6 +9,17 @@ var dir = path.join(__dirname, "public");
 app.use(express.static(dir));
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+	const requesterDetails = {
+		method: req.method,
+		url: req.url,
+		ip: req.ip,
+		userAgent: req.get("User-Agent"),
+	};
+	console.log(`Endpoint hit:`, requesterDetails);
+	next();
+});
+
 function formatSize(size) {
 	if (size < 1024) return size + " B";
 	if (size < 1024 * 1024) return (size / 1024).toFixed(2) + " KB";
